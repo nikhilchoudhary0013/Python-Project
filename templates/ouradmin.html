@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      div{
+        border: none;
+      }
+
+      @font-face {
+        font-family: "MyCustomFont";
+        src: url("./fonts/Rubik-Black.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      #header {
+        background-color: #34495e;
+        color: white;
+        padding: 20px 30px;
+        font-size: 1.6rem;
+        text-align: center;
+        /* font-weight: 600; */
+        font-family: "MyCustomFont";
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      #header button:hover {
+        background-color: red;
+        color: rgb(4, 4, 136);
+      }
+
+      .container {
+        display: flex;
+        flex: 1;
+      }
+
+      .sidebar {
+        height: 82vh;
+        width: 250px;
+        background-color: #34495e;
+        color: white;
+        padding: 30px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar a {
+        display: block;
+        text-decoration: none;
+        color: white;
+        font-size: 1.2rem;
+        padding: 12px 0;
+        margin-bottom: 15px;
+        transition: background-color 0.3s ease;
+        font-weight: 500;
+        padding-left: 10px;
+      }
+
+      .sidebar a:hover {
+        background-color: #5f7b97;
+        padding-left: 20px;
+        border-radius: 8px;
+      }
+
+      footer {
+        display: flex;
+        height: 70px;
+        background-color: #34495e;
+        color: white;
+        text-align: center;
+        padding: 15px;
+        font-size: 18px;
+        /* margin-top: 15px; */
+        align-items: center;
+        justify-content: center;
+      }
+
+      #logout {
+        height: 30px;
+        width: 90px;
+        float: right;
+        border: none;
+        border-radius: 5px;
+        background-color: rgb(238, 79, 79);
+        color: white;
+        font-size: 13px;
+        font-weight: bolder;
+        font-family: sans-serif;
+      }
+
+      .right-content {
+        flex: 1;
+        padding: 20px;
+        max-height: 80vh; /* कंटेंट के लिए फिक्स ऊंचाई */
+        overflow-y: auto; /* वर्टिकल स्क्रॉल को इनेबल करता है */
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+      }
+
+      .card1 {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      .card-header1 {
+        background-color: #2980b9;
+        color: white;
+        padding: 15px;
+        font-size: 1.3rem;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      th,
+      td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #2980b9;
+        color: white;
+        font-weight: 600;
+      }
+
+      td {
+        background-color: #f9f9f9;
+      }
+
+      tr:hover {
+        background-color: #ecf0f1;
+      }
+
+      .btn {
+        background-color: #2980b9;
+        color: white;
+        padding: 8px 15px;
+        font-weight: 600;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #3498db;
+      }
+
+      .btn-secondary {
+        background-color: #f39c12;
+      }
+
+      .btn-secondary:hover {
+        background-color: #e67e22;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+          padding: 20px;
+        }
+
+        .content {
+          padding: 15px;
+        }
+      }
+
+     
+      .dashboard-container {
+        flex: 1;
+       
+        padding: 20px;
+        max-height: 83vh; /* कंटेंट के लिए फिक्स ऊंचाई */
+        /* border: 1px solid #ccc; */
+        background-color: #f9f9f9;
+      }
+
+      .card,
+      p,
+      h3 {
+        color: white;
+        text-align: center;
+      }
+      h2 {
+        color: #2980b9;
+        text-align: center;
+      }
+
+      .stats {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .card {
+        height: 150px;
+        background: #2980b9;
+        color: white;
+        padding: 60px;
+        text-align: center;
+        border-radius: 5px;
+        flex: 1;
+        margin: 5px;
+        transition: box-shadow 0.3s ease; /* Smooth transition */
+      }
+
+      
+      .recent-orders h3{
+        color: #2980b9;
+
+      }
+      .recent-orders table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      .recent-orders ,th,td {
+        padding: 10px;
+        /* border: 1px solid #ddd; */
+        text-align: center;
+      }
+
+      .recent-orders th {
+        background: #2980b9;
+        color: white;
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 8px rgb(79, 79, 79); /* Shadow on hover */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="header">
+      Cafe Management Admin Panel
+      <button id="logout">Log Out</button>
+    </div>
+
+    <div class="container">
+      <div class="sidebar">
+        <a href="#" id="dashboard">Dashboard</a>
+        <a href="#" id="menu">Menu Management</a>
+        <a href="#" id="staff">Staff Management</a>
+        <a href="#" id="orders">Orders</a>
+        <a href="#" id="reports">Report</a>
+      </div>
+
+      <div id="contentArea" class="right-content">
+
+
+        <div class="dashboard-container">
+          <h2>Dashboard</h2>
+  
+          <!-- Stats Cards -->
+          <div class="stats">
+            <div class="card">
+              <h3>Total Sales</h3>
+              <p>$10,000</p>
+            </div>
+            <div class="card">
+              <h3>Orders</h3>
+              <p>120</p>
+            </div>
+            <div class="card">
+              <h3>Customers</h3>
+              <p>300</p>
+            </div>
+          </div>
+  
+          <!-- Recent Orders -->
+          <div class="recent-orders">
+            <h3>Recent Orders</h3>
+            <table>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Amount</th>
+              </tr>
+              <tr>
+                <td>#101</td>
+                <td>John Doe</td>
+                <td>$25.00</td>
+              </tr>
+              <tr>
+                <td>#102</td>
+                <td>Jane Smith</td>
+                <td>$40.00</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>© 2024 Cafe Management. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+      // For dashboard :--------------
+      document
+        .getElementById("dashboard")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Default action रोकने के लिए
+          document.getElementById("contentArea").innerHTML = `
+          <div class="dashboard-container">
+        <h2>Dashboard</h2>
+
+        <!-- Stats Cards -->
+        <div class="stats">
+          <div class="card">
+            <h3>Total Sales</h3>
+            <p>$10,000</p>
+          </div>
+          <div class="card">
+            <h3>Orders</h3>
+            <p>120</p>
+          </div>
+          <div class="card">
+            <h3>Customers</h3>
+            <p>300</p>
+          </div>
+        </div>
+
+        <!-- Recent Orders -->
+        <div class="recent-orders">
+          <h3>Recent Orders</h3>
+          <table>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Amount</th>
+            </tr>
+            <tr>
+              <td>#101</td>
+              <td>John Doe</td>
+              <td>$25.00</td>
+            </tr>
+            <tr>
+              <td>#102</td>
+              <td>Jane Smith</td>
+              <td>$40.00</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+              `;
+        });
+
+      // For Menus :--------------
+      document
+        .getElementById("menu")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Default action रोकने के लिए
+          document.getElementById("contentArea").innerHTML = `
+            <div id="menu" class="card1">
+                <div class="card-header1">Menu Management</div>
+                <form action="/ourAdmin" method='POST'>
+                  <label for="category">Category</label>
+                  <select name="category">
+                  
+                  <option id="1" value="breakfast"><button typ="submit">breakfast</button></option>
+                  <option id="2" value="launch"><button typ="submit">launch</button></option>
+                  <option id="3" value="dinner"><button typ="submit">dinner</button></option>
+                  </select>
+                  
+                </form>
+                <button class="btn">Add New Item</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in amenu %}
+                        <tr>
+                            <td>{{m[2]}}</td>
+                            <td>{{m[4]}}</td>
+                            <td>
+                                <button class="btn">Edit</button>
+                                <button class="btn btn-secondary">Delete</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                       
+                        
+                    </tbody>
+                </table>
+            </div>
+            `;
+        });
+
+      // For staff :--------------
+      document
+        .getElementById("staff")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Default action रोकने के लिए
+          document.getElementById("contentArea").innerHTML = `
+          <div id="staff" class="card1">
+                <div class="card-header1">Staff Management</div>
+                <button class="btn">Add New Staff</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Staff Name</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Alice</td>
+                            <td>Barista</td>
+                            <td>Active</td>
+                            <td>
+                                <button class="btn">Edit</button>
+                                <button class="btn btn-secondary">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Bob</td>
+                            <td>Manager</td>
+                            <td>Active</td>
+                            <td>
+                                <button class="btn">Edit</button>
+                                <button class="btn btn-secondary">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            `;
+        });
+
+      // For orders :--------------
+
+      document
+        .getElementById("orders")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Default action रोकने के लिए
+          document.getElementById("contentArea").innerHTML = `
+          <div id="orders" class="card1">
+                <div class="card-header1">Orders</div>
+                <button class="btn">View All Orders</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer Name</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#001</td>
+                            <td>John Doe</td>
+                            <td>Pending</td>
+                            <td>
+                                <button class="btn">Complete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#002</td>
+                            <td>Jane Smith</td>
+                            <td>Completed</td>
+                            <td>
+                                <button class="btn">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            `;
+        });
+
+      // For reports :--------------
+      document
+        .getElementById("reports")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Default action रोकने के लिए
+          document.getElementById("contentArea").innerHTML = `
+          <div id="reports" class="card1">
+                <div class="card-header1">Reports</div>
+                <button class="btn">Generate Sales Report</button>
+                <button class="btn">Generate Staff Performance Report</button>
+            </div>
+            `;
+        });
+    </script>
+  </body>
+</html>
